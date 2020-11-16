@@ -14,6 +14,7 @@ $tasks = DB::table('tasks')->where('user_id', '=', $id)-> get();
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
+
 <body class="bg-purple-300">
 <div class="grid grid-cols-12 gap-4 mt-20">
 <div class="col-start-10 col-span-2">
@@ -77,4 +78,5 @@ Užduotis...</textarea>
 </div>
 </div>
 </body>
+
 </html>
