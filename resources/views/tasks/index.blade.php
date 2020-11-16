@@ -15,21 +15,40 @@ $tasks = DB::table('tasks')->where('user_id', '=', $id)-> get();
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body class="bg-purple-300">
+<div class="grid grid-cols-12 gap-4 mt-20">
+<div class="col-start-10 col-span-2">
+<form method="POST" action="{{ route('logout') }}">
+                            @csrf
 
-    uzduotys
+                            <a href="{{ route('logout') }}"
+                                                onclick="event.preventDefault();
+                                                            this.closest('form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+                        </form>
+</div>
+</div>
+<div class="grid grid-cols-12 gap-4 mt-20">
+<div class="col-start-5 col-span-4">
+    <p>Sukurti naują užduotį</p>
     <form action="{{route('task.store')}}" method="post">
     <textarea rows="4" cols="50" name="task">
-Enter text here...</textarea>
+Užduotis...</textarea>
     <input type="hidden" id="user_id" name="user_id" value="{{$user->id}}">
     <input type="submit">
     @csrf
 </form>
 <br>
+</div>
+</div>
+<div class="grid grid-cols-12 gap-4 mt-20">
+<div class="col-start-5 col-span-5">
 <table class="table-auto">
   <thead>
   <thead >
   <tr>
-  {{$user->name}} <h1>Tu gali!</h1>
+  <h1 class="font-semibold text-2xl">{{$user->name}}</h1>
+   <h2 class="font-semibold text-1xl">Tu gali!</h2>
   </tr>
   </thead>
     <tr>
@@ -55,5 +74,7 @@ Enter text here...</textarea>
    
   @endforeach
 </table>
+</div>
+</div>
 </body>
 </html>
