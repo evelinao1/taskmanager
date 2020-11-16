@@ -30,13 +30,15 @@ $tasks = DB::table('tasks')->where('user_id', '=', $id)-> get();
 </div>
 </div>
 <div class="grid grid-cols-12 gap-4 mt-20">
-<div class="col-start-5 col-span-4">
+<div class="col-start-5 col-span-5">
     <p>Sukurti naują užduotį</p>
     <form action="{{route('task.store')}}" method="post">
     <textarea rows="4" cols="50" name="task">
 Užduotis...</textarea>
     <input type="hidden" id="user_id" name="user_id" value="{{$user->id}}">
-    <input type="submit">
+    <x-jet-button class="ml-4">
+                    {{ __('Sukurti') }}
+                </x-jet-button>
     @csrf
 </form>
 <br>
