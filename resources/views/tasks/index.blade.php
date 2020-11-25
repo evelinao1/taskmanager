@@ -17,7 +17,11 @@ $tasks = DB::table('tasks')->where('user_id', '=', $id)-> get();
 
 <body class="bg-purple-300">
 <div class="grid grid-cols-12 gap-4 mt-20">
-<div class="col-start-10 col-span-2">
+
+<div class="col-start-9 col-span-1">
+<a href="{{ route('user.index') }}">Edit profile</a>
+</div>
+<div class="col-start-10 col-span-1">
 <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
@@ -28,8 +32,33 @@ $tasks = DB::table('tasks')->where('user_id', '=', $id)-> get();
                             </a>
                         </form>
 </div>
+<div class="col-start-11 col-span-1">
+    @if(Auth::User()->logo)
+  
+        <img class="logo" src="{{asset('img/'.Auth::User()->logo)}}"  alt="logo">
+    @endif
+
 </div>
-<div class="grid grid-cols-12 gap-4 mt-20">
+</div>
+<div class="grid grid-cols-12 gap-4 mt-10">
+<div class="col-start-5 col-span-5">
+@if ($errors->any())
+    <div class="alert">
+        <ul class="list-group">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+@if(session()->has('info_message'))
+    <div class="alert aler-info">
+    {{session()->get('info_message')}}
+    </div>
+@endif
+</div>
+</div>
+<div class="grid grid-cols-12 gap-4 mt-5">
 <div class="col-start-5 col-span-5">
     <p>Sukurti naują užduotį</p>
     <form action="{{route('task.store')}}" method="post">
@@ -44,7 +73,7 @@ Užduotis...</textarea>
 <br>
 </div>
 </div>
-<div class="grid grid-cols-12 gap-4 mt-20">
+<div class="grid grid-cols-12 gap-4 mt-10">
 <div class="col-start-5 col-span-5">
 <table class="table-auto bg-purple-200 rounded-md">
   <thead>

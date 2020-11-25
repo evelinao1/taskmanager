@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,6 +39,29 @@ Route::group(['prefix'=>'tasks'],function(){
     post('/destroy/{id}',[TaskController::class,'destroy'])->name('task.destroy');
 });
 
+Route::group(['prefix'=>'user'],function(){
+    
+    Route::middleware(['auth:sanctum', 'verified'])->
+    get('/',[UserController::class,'index'])->name('user.index');
+
+    // Route::middleware(['auth:sanctum', 'verified'])->
+    // get('/create',[TaskController::class,'create'])->name('profile.create');
+
+    Route::middleware(['auth:sanctum', 'verified'])->
+    post('/store',[UserController::class,'storePhoto'])->name('user.storePhoto');
+
+    Route::middleware(['auth:sanctum', 'verified'])->
+    get('/edit/{User}',[UserController::class,'edit'])->name('user.edit');
+
+    Route::middleware(['auth:sanctum', 'verified'])->
+    get('/delete',[UserController::class,'deletePhoto'])->name('user.deletePhoto');
+
+    Route::middleware(['auth:sanctum', 'verified'])->
+    post('/update/{User}',[UserController::class,'update'])->name('user.update');
+
+    // Route::middleware(['auth:sanctum', 'verified'])->
+    // post('/destroy/{id}',[TaskController::class,'destroy'])->name('profile.destroy');
+});
 // Route::group(['prefix'=>'tasks'], function(){
 //     Route::get('/{User}',[TaskController::class,'index'])->name('task.index');
 //     Route::get('/create',[TaskController::class,'create'])->name('task.create');

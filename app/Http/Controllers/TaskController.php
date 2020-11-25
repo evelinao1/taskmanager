@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\UserController;
 class TaskController extends Controller
 {
     /**
@@ -36,7 +37,20 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-       
+        $validator = Validator::make($request->all(),
+        [
+            'task'=>['required'],
+           
+        ],
+        [
+            'task.required'=>'Užduoties apibūdinimas privalomas',
+            
+        ]);
+            if($validator->fails()){
+                $request->flash();
+                return redirect()->back()->withErrors($validator);
+            }
+
         Task::create([
             'task' => $request['task'],
             'user_id' => User::find(auth()->id())->id,
@@ -45,7 +59,7 @@ class TaskController extends Controller
         // $task->task = $request->task;
         // $task->user_id = $id;
         // $task->save();
-        return redirect()->route('task.index');
+        return redirect()->route('task.index')->with('info_message','Užduotis sėkmingai pridėta');;
     }
 
     /**
